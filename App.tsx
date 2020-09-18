@@ -26,7 +26,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import Hello, { speedLimit } from "./src/components/Hello";
+import Hello, { } from "./src/components/Hello";
 
 declare const global: { HermesInternal: null | {} };
 
@@ -37,8 +37,7 @@ declare const global: { HermesInternal: null | {} };
 
 
 const App = () => {
-  let output = speedLimit(70)
-  console.log(' Speed ===========', output);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -47,7 +46,11 @@ const App = () => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
 
-            <Hello counter={0} />
+            <Hello counter={0} btnType={'primary'} />
+            <Hello counter={0} btnType={'primaryDisabled'} />
+            <Hello counter={0} btnType={'error'} />
+            <Hello counter={0} btnType={'errorDisabled'} />
+
           <Header />
           {global.HermesInternal == null ? null : (
             <View style={styles.engine}>

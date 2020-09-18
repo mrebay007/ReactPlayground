@@ -5,27 +5,64 @@ import {
     Text,
     Image,
     View,
-    Alert,, TouchableOpacity
+    Alert, 
+    TouchableOpacity,
+    StyleSheet,
  } from 'react-native';
 
 export interface Props {
   counter: number;
   name?: string;
   enthusiasmLevel?: number;
+  btnType: string;
 }
 
-function Hello({ name, enthusiasmLevel = 1 }: Props) {
+// interface ShadeFn {
+//   (): Promise<any>
+// }
+// interface _ShadeCtrlButtonProps {
+//   asyncFN: ShadeFn
+// }
+// type ShadeCtrlButtonProps = ButtonProps & _ShadeCtrlButtonProps
+// interface ShadeCtrlButtonState {
+//   isReady: boolean
+// }
+
+function Hello( { name, enthusiasmLevel = 1, btnType }: Props ) {
   if (enthusiasmLevel <= 0) {
     throw new Error('You could be a little more enthusiastic. :D');
   }
 
 
+//   execute = async () => {
+//     if (this.isReady) {
+//         Logger.warn(TAG, "Success")
+//         this.setState({ isReady: false })
+//         this.isReady = false
+//         try {
+//             const response = await this.props.asyncFN()
+//             this.setState({ isReady: true })
+//             this.isReady = true
+//         } catch (error) {
+//             Logger.warn(TAG, "Error ")
+//             this.setState({ isReady: true })
+//             this.isReady = true
+//         }
+//     } else {
+//         Logger.debug(TAG, "Skipping button press - waiting on ")
+//     }
+// }
+  const btnName = btnType
+  const items: any = []
+  console.log('==========', items)
+
   return (
+
     <TouchableOpacity 
-      style={{ backgroundColor: '#BADA55' }}>
-          <Text style={{ fontSize: 60}}>
-              Counter: 
-          </Text>
+        style={ [styles.btn, styles.error] }>
+            <Text style={{ fontSize: 32, color: 'white'}}>
+                {btnName}
+            </Text>
     </TouchableOpacity>
 
   );
@@ -33,36 +70,42 @@ function Hello({ name, enthusiasmLevel = 1 }: Props) {
 
 export default Hello;
 
-export function fizzBuzz(number: any) {
-    let numberType = typeof number
-    console.log('=============== Number Type', numberType)
-    switch(numberType) {
-      case 'string':
-        console.log('Not a number')
-        break
-      case 'undefined':
-        console.log('Value is undefined')
-        break
-      case 'number':
-        console.log('Yay, it\'s a number')
-        switch(number) {
-        }
-    }
-}
+
+const primary = '#79C534'
+const primaryDisabled = '#D0EFBE'
+const secondary = '#007CB7'
+const secondaryDisabled = '#C7EAFB'
+const error = '#C53434'
+const errorDisabled = '#F2ABAD'
 
 
+const styles = StyleSheet.create({
 
+  btn: {
+    flex: 1, 
+    borderRadius: 8,
+    borderColor: 'black',
+    borderWidth: 2, 
+    backgroundColor: 'lightgrey', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    paddingVertical: 8,
+    margin: 8, 
+    marginLeft: 4, 
+  },
 
-export function speedLimit(number: any) {
- number = Math.floor(number)
-  switch(number) {
-    case (number > 0 && number < 70):
-      return 'Ok'
-    case (number > 70 && number < 75):
-      return 'Points: 1'
-    case (number > 70 && number < 150):
-      return 'Points: 1'
-    case (number > 150): 
-      return 'Driver Suspended'
-  }
-}
+  primary: {
+    backgroundColor: primary
+  },
+  primaryDisabled: {
+    backgroundColor: primaryDisabled,
+  },
+
+  error: {
+    backgroundColor: error
+  },
+  errorDisabled: {
+    backgroundColor: errorDisabled
+  },
+
+})
