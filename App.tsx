@@ -26,9 +26,19 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-declare const global: {HermesInternal: null | {}};
+import Hello, { speedLimit } from "./src/components/Hello";
+
+declare const global: { HermesInternal: null | {} };
+
+// let output = printNumbers(3, 9);
+// let output = fizzBuzz('15')
+// console.log(' FIZZ BUZZ ===========', output);
+
+
 
 const App = () => {
+  let output = speedLimit(70)
+  console.log(' Speed ===========', output);
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -36,6 +46,8 @@ const App = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
+
+            <Hello counter={0} />
           <Header />
           {global.HermesInternal == null ? null : (
             <View style={styles.engine}>
@@ -44,7 +56,7 @@ const App = () => {
           )}
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
+              <Text style={styles.sectionTitle}>Step One: It</Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.tsx</Text> to change
                 this screen and then come back to see your edits.
