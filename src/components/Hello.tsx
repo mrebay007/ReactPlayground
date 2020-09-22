@@ -1,71 +1,144 @@
 // src/components/Hello.tsx
 
 import * as React from 'react';
+import { PureComponent } from 'react';
 import {
-    Text,
-    Image,
-    View,
-    Alert, 
-    TouchableOpacity,
-    StyleSheet,
+		Text,
+		Image,
+		View,
+		Alert, 
+		TouchableOpacity,
+		StyleSheet,
  } from 'react-native';
 
-export interface Props {
-  counter: number;
-  name?: string;
-  enthusiasmLevel?: number;
-  btnType: string;
+ export enum buttonType {
+	primary = 'Primary',
+	primaryDisabled = 'PrimaryDisabled',
+	primaryDisabledLoading = 'PrimaryDisabledLoading', 
+	secondary = 'Secondary',
+	secondaryDisabled = 'SecondaryDisabled',
+	secondaryDisabledLoading = 'SecondaryDisabledLoading',
+	error = 'Error',
+	errorDisabled = 'ErrorDisabled',
 }
 
-// interface ShadeFn {
-//   (): Promise<any>
-// }
-// interface _ShadeCtrlButtonProps {
-//   asyncFN: ShadeFn
-// }
-// type ShadeCtrlButtonProps = ButtonProps & _ShadeCtrlButtonProps
-// interface ShadeCtrlButtonState {
-//   isReady: boolean
+// export interface Props {
+// 	counter: number;
+// 	name?: string;
+// 	enthusiasmLevel?: number;
+// 	// btnType: string;
 // }
 
-function Hello( { name, enthusiasmLevel = 1, btnType }: Props ) {
-  if (enthusiasmLevel <= 0) {
-    throw new Error('You could be a little more enthusiastic. :D');
-  }
+
+interface ShadeFn {
+	(): Promise<any>
+}
+
+interface ShadeCtrlButtonProps {
+	asyncFN: ShadeFn
+	btnType: string
+}
+
+// type ShadeCtrlButtonProps = _ShadeCtrlButtonProps
 
 
-//   execute = async () => {
-//     if (this.isReady) {
-//         Logger.warn(TAG, "Success")
-//         this.setState({ isReady: false })
-//         this.isReady = false
-//         try {
-//             const response = await this.props.asyncFN()
-//             this.setState({ isReady: true })
-//             this.isReady = true
-//         } catch (error) {
-//             Logger.warn(TAG, "Error ")
-//             this.setState({ isReady: true })
-//             this.isReady = true
-//         }
-//     } else {
-//         Logger.debug(TAG, "Skipping button press - waiting on ")
-//     }
-// }
-  const btnName = btnType
-  const items: any = []
-  console.log('==========', items)
+interface ShadeCtrlButtonState {
+	isReady: boolean
+	buttonType: string
+}
 
-  return (
+const TAG = 'Hello Mate: '
+export class Hello extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButtonState> {
+	isReady = true
+	constructor(props: ShadeCtrlButtonProps) {
+		super(props)
+		const werd = this.props.btnType
+		this.state = {
+			isReady: true,
+			buttonType: werd
+		}
+	}
 
-    <TouchableOpacity 
-        style={ [styles.btn, styles.error] }>
-            <Text style={{ fontSize: 32, color: 'white'}}>
-                {btnName}
-            </Text>
-    </TouchableOpacity>
+	execute = async () => {
+		if (this.isReady) {
+			console.warn(TAG, "Success")
+			this.setState({ isReady: false })
+			this.isReady = false
+			try {
+				const response = await this.props.asyncFN()
+				this.setState({ isReady: true })
+				this.isReady = true
+			} catch (error) {
+				console.warn(TAG, "Error ")
+				this.setState({ isReady: true })
+				this.isReady = true
+			}
+		} else {
+			console.debug(TAG, "Skipping button press - waiting on ")
+		}
+	}
 
-  );
+	render = () => {
+		const { isReady, buttonType } = this.state
+		let buttonStyle = {}
+		
+		switch(buttonType) {
+			case 'Primary': {
+				console.info('========= P: ', buttonType)
+				buttonStyle = styles.primary
+				// console.info('THIS COOL => ', buttonStyle)
+				break
+			}	
+			case 'PrimaryDisabled': {
+				console.info('========= PD: ', buttonType)
+				break
+			}	
+			case 'PrimaryDisabledLoading': {
+				console.info('========= PDL: ', buttonType)
+				break
+			}
+			case 'Error': {
+				console.info('========= Err: ', buttonType)
+				break
+			}
+			default: {
+				console.info('========= DEFAULT CATCH ALL')
+				buttonStyle = styles.default
+				break
+			}
+		}
+	  
+		return (
+			<TouchableOpacity 
+				style={ buttonStyle }
+
+				disabled={ !this.isReady }
+				onPress={
+					() => {
+					this.execute()
+					}
+				}>
+					<Text style={{ fontSize: 32, color: 'white'}}>
+						These Are Titles {isReady}
+					</Text>
+					
+			</TouchableOpacity>
+		
+			// <Button
+			//     title={this.props.title}
+			//     icon={this.props.icon}
+			//     type={this.props.type}
+			//     buttonStyle={this.props.buttonStyle}
+			//     disabled={!this.isReady}
+			//     loading={!this.state.isReady}
+			//     onPress={
+			//         () => {
+			//             this.execute()
+			//         }
+			//     }
+			// />
+		)
+  	}
 }
 
 export default Hello;
@@ -81,31 +154,31 @@ const errorDisabled = '#F2ABAD'
 
 const styles = StyleSheet.create({
 
-  btn: {
-    flex: 1, 
-    borderRadius: 8,
-    borderColor: 'black',
-    borderWidth: 2, 
-    backgroundColor: 'lightgrey', 
-    justifyContent: 'center', 
-    alignItems: 'center',
-    paddingVertical: 8,
-    margin: 8, 
-    marginLeft: 4, 
-  },
+	default: {
+		flex: 1, 
+		borderRadius: 8,
+		borderColor: 'black',
+		borderWidth: 2, 
+		backgroundColor: 'lightgrey', 
+		justifyContent: 'center', 
+		alignItems: 'center',
+		paddingVertical: 8,
+		margin: 8, 
+		marginLeft: 4, 
+	},
 
-  primary: {
-    backgroundColor: primary
-  },
-  primaryDisabled: {
-    backgroundColor: primaryDisabled,
-  },
+	primary: {
+		backgroundColor: primary
+	},
+	primaryDisabled: {
+		backgroundColor: primaryDisabled,
+	},
 
-  error: {
-    backgroundColor: error
-  },
-  errorDisabled: {
-    backgroundColor: errorDisabled
-  },
+	error: {
+		backgroundColor: error
+	},
+	errorDisabled: {
+		backgroundColor: errorDisabled
+	},
 
 })
