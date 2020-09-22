@@ -46,11 +46,6 @@ const App = () => {
 					style={styles.scrollView}>
 
 						<Hello
-							btnType={ buttonType.error }
-							asyncFN={ () => sum(234, 234) }
-						/>
-
-						<Hello
 							btnType={ buttonType.primary }
 							asyncFN={ () => sum(234, 234) }
 						/>
@@ -65,6 +60,15 @@ const App = () => {
 							asyncFN={ () => sum(234, 234) }
 						/>
 
+						<Hello
+							btnType={ buttonType.error }
+							asyncFN={ () => sum(234, 234) }
+						/>
+
+						<Hello
+							btnType={ buttonType.errorDisabled }
+							asyncFN={ () => sum(234, 234) }
+						/>
 
 					{/* <Header />
 					{global.HermesInternal == null ? null : (
@@ -109,6 +113,7 @@ const App = () => {
 const styles = StyleSheet.create({
 	scrollView: {
 		backgroundColor: Colors.lighter,
+		width: '80%',
 	},
 	engine: {
 		position: 'absolute',

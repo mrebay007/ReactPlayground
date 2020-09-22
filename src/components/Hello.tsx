@@ -80,30 +80,38 @@ export class Hello extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButtonSt
 
 	render = () => {
 		const { isReady, buttonType } = this.state
-		let buttonStyle = {}
+		let buttonStyle = { ...styles.btn }
 		
 		switch(buttonType) {
 			case 'Primary': {
 				console.info('========= P: ', buttonType)
-				buttonStyle = styles.primary
+				buttonStyle = { ...styles.btn, ...styles.primary }
 				// console.info('THIS COOL => ', buttonStyle)
 				break
 			}	
 			case 'PrimaryDisabled': {
 				console.info('========= PD: ', buttonType)
+				buttonStyle = { ...styles.btn, ...styles.primaryDisabled }
 				break
 			}	
 			case 'PrimaryDisabledLoading': {
 				console.info('========= PDL: ', buttonType)
+				buttonStyle = { ...styles.btn, ...styles.primaryDisabled }
 				break
 			}
 			case 'Error': {
 				console.info('========= Err: ', buttonType)
+				buttonStyle = { ...styles.btn, ...styles.error }
+				break
+			}
+			case 'ErrorDisabled': {
+				console.info('========= Err: ', buttonType)
+				buttonStyle = { ...styles.btn, ...styles.errorDisabled }
 				break
 			}
 			default: {
 				console.info('========= DEFAULT CATCH ALL')
-				buttonStyle = styles.default
+				buttonStyle = styles.btn
 				break
 			}
 		}
@@ -154,7 +162,7 @@ const errorDisabled = '#F2ABAD'
 
 const styles = StyleSheet.create({
 
-	default: {
+	btn: {
 		flex: 1, 
 		borderRadius: 8,
 		borderColor: 'black',
