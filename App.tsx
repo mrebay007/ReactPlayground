@@ -26,7 +26,7 @@ import {
 	ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import Hello, { buttonType } from "./src/components/Hello";
+import FAButton, { buttonType } from "./src/components/FAButton";
 
 declare const global: { HermesInternal: null | {} };
 
@@ -51,70 +51,70 @@ const App = () => {
 					contentInsetAdjustmentBehavior="automatic"
 					style={styles.scrollView}>
 
-						<Hello
+						<FAButton 
 							disabled={ false }
 							title={ buttonType.primary }
 							btnType={ buttonType.primary }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
-						<Hello
+						<FAButton 
 							disabled={ false }
 							title={ buttonType.primaryDisabled }
 							btnType={ buttonType.primaryDisabled }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
-						<Hello
+						<FAButton 
 							disabled={ true }
 							title={ buttonType.primaryDisabledLoading }
 							btnType={ buttonType.primaryDisabled }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
-						<Hello
+						<FAButton 
 							disabled={ false }
 							title={ buttonType.secondary }
 							btnType={ buttonType.secondary }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
-						<Hello
+						<FAButton 
 							disabled={ false }
 							title={ buttonType.secondaryDisabled }
 							btnType={ buttonType.secondaryDisabled }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
-						<Hello
+						<FAButton 
 							disabled={ true }
 							title={ buttonType.secondaryDisabledLoading }
 							btnType={ buttonType.secondaryDisabled }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
-						<Hello
+						<FAButton 
 							disabled={ false }
 							title={ buttonType.error }
 							btnType={ buttonType.error }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
-						<Hello
+						<FAButton 
 							disabled={ true }
 							title={ buttonType.errorDisabled }
 							btnType={ buttonType.errorDisabled }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
-						<Hello
+						<FAButton 
 							disabled={ true }
 							title={ buttonType.label }
 							btnType={ buttonType.label }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
-						<Hello
+						<FAButton 
 							disabled={false}
 							title='Default' 
 							btnType={ "Broken" }

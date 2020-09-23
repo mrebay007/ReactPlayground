@@ -138,7 +138,12 @@ export class FAButton extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButto
 				onPress={
 					() => { this.execute() }
 				}>
-					<Text style={ textStyle }>
+					<Text 
+						numberOfLines={1}
+						allowFontScaling={true}
+						adjustsFontSizeToFit={true}
+						ellipsizeMode='middle'
+						style={ textStyle }>
 						{ this.props.title }
 					</Text>
 
@@ -171,22 +176,22 @@ export class FAButton extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButto
   	}
 }
 
-// export default FAButton;
+export default FAButton;
 
-const grey04 = 				'#EFEFEF'
-const grey10 =				'#DDDDDD'
-const grey15 = 				'#BEBEBE'
-const grey25 = 				'#AAAAAA'
-const grey85 = 				'#303030'
+const grey04 = '#EFEFEF'
+const grey10 = '#DDDDDD'
+const grey15 = '#BEBEBE'
+const grey25 = '#AAAAAA'
+const grey85 = '#303030'
 
-const primary = 			'#79C534'
-const primaryDisabled = 	'#D0EFBE'
-const secondary = 			'#FFD623'
-const secondaryDisabled = 	'#FFF4C4'
-const tertiary = 			grey25
-const tertiaryDisabled = 	grey10
-const error = 				'#C53434'
-const errorDisabled = 		'#F2ABAD'
+const primary =	'#79C534'
+const primaryDisabled =	'#D0EFBE'
+const secondary = '#FFD623'
+const secondaryDisabled = '#FFF4C4'
+const tertiary = grey25
+const tertiaryDisabled = grey10
+const error = '#C53434'
+const errorDisabled = '#F2ABAD'
 
 
 const styles = StyleSheet.create({
@@ -207,6 +212,7 @@ const styles = StyleSheet.create({
 
 	btnText: {
 		fontSize: 24,
+		
 		fontFamily: Platform.OS == 'ios' ? "AvenirNext-Bold" : "sans-serif-medium",
 	},
 
