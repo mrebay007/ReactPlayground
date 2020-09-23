@@ -22,6 +22,7 @@ import {
 	secondaryDisabledLoading = 'SecondaryDisabledLoading',
 	error = 'Error',
 	errorDisabled = 'ErrorDisabled',
+	label = 'Label'
 }
 
 
@@ -96,7 +97,6 @@ export class Hello extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButtonSt
 			case 'Secondary': {
 				buttonStyle = { ...styles.btn, ...styles.secondary }
 				textStyle = { ...styles.btnText, ...styles.btnTextDark }
-				// console.info('THIS COOL => ', buttonStyle)
 				break
 			}	
 			case 'SecondaryDisabled': {
@@ -117,6 +117,11 @@ export class Hello extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButtonSt
 			case 'ErrorDisabled': {
 				buttonStyle = { ...styles.btn, ...styles.errorDisabled }
 				textStyle = { ...styles.btnText, ...styles.btnTextLight }
+				break
+			}
+			case 'Label': {
+				buttonStyle = { ...styles.btn, ...styles.label }
+				textStyle = { ...styles.btnText, ...styles.btnTextDark }
 				break
 			}
 			default: {
@@ -213,9 +218,13 @@ const styles = StyleSheet.create({
 	},
 
 	loading: {
-		// flex: 0.2,
 		marginHorizontal: 8,
-		padding: 4,
+		// padding: 4,
+	},
+
+	label: {
+		backgroundColor: 'transparent',
+		borderColor: 'transparent',
 	},
 
 	primary: {
@@ -243,5 +252,4 @@ const styles = StyleSheet.create({
 		backgroundColor: errorDisabled,
 		borderColor: grey15,
 	},	
-
 })
