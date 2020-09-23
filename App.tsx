@@ -31,8 +31,13 @@ import Hello, { buttonType } from "./src/components/Hello";
 declare const global: { HermesInternal: null | {} };
 
 async function sum(a: number, b: number) {
-	console.info(a + b)
+	console.info('== The Math: ', a + b)
 	return a + b
+}
+
+async function toggle() {
+	let isEnabled: boolean = true
+	isEnabled ? buttonType.primary : buttonType.primaryDisabled
 }
 
 const App = () => {
@@ -46,27 +51,79 @@ const App = () => {
 					style={styles.scrollView}>
 
 						<Hello
+							disabled={false}
+							title={ buttonType.primary }
 							btnType={ buttonType.primary }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
 						<Hello
+							disabled={false}
+							title={ buttonType.primaryDisabled }
 							btnType={ buttonType.primaryDisabled }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
 						<Hello
-							btnType={ buttonType.primaryDisabledLoading }
+							disabled={true}
+							title={ buttonType.primaryDisabledLoading }
+							btnType={ buttonType.primaryDisabled }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
 						<Hello
+							disabled={false}
+							title={ buttonType.secondary }
+							btnType={ buttonType.secondary }
+							asyncFN={ () => sum(234, 234) }
+						/>
+
+						<Hello
+							disabled={false}
+							title={ buttonType.secondaryDisabled }
+							btnType={ buttonType.secondaryDisabled }
+							asyncFN={ () => sum(234, 234) }
+						/>
+
+						<Hello
+							disabled={true}
+							title={ buttonType.secondaryDisabledLoading }
+							btnType={ buttonType.secondaryDisabled }
+							asyncFN={ () => sum(234, 234) }
+						/>
+
+						<Hello
+							disabled={false}
+							title={ buttonType.error }
 							btnType={ buttonType.error }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
 						<Hello
+							disabled={false}
+							title={ buttonType.errorDisabled }
 							btnType={ buttonType.errorDisabled }
+							asyncFN={ () => sum(234, 234) }
+						/>
+
+						<Hello
+							disabled={false}
+							title={ buttonType.error }
+							btnType={ buttonType.error }
+							asyncFN={ () => sum(234, 234) }
+						/>
+
+						<Hello
+							disabled={true}
+							title={ buttonType.errorDisabled }
+							btnType={ buttonType.errorDisabled }
+							asyncFN={ () => sum(234, 234) }
+						/>
+
+						<Hello
+							disabled={false}
+							title='Broken Button' 
+							btnType={ "ErrorDisabl" }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
@@ -113,7 +170,7 @@ const App = () => {
 const styles = StyleSheet.create({
 	scrollView: {
 		backgroundColor: Colors.lighter,
-		width: '80%',
+
 	},
 	engine: {
 		position: 'absolute',

@@ -8,7 +8,9 @@ import {
 		View,
 		Alert, 
 		TouchableOpacity,
-		StyleSheet,
+		StyleSheet, 
+		ActivityIndicator,
+		Platform
  } from 'react-native';
 
  export enum buttonType {
@@ -22,13 +24,6 @@ import {
 	errorDisabled = 'ErrorDisabled',
 }
 
-// export interface Props {
-// 	counter: number;
-// 	name?: string;
-// 	enthusiasmLevel?: number;
-// 	// btnType: string;
-// }
-
 
 interface ShadeFn {
 	(): Promise<any>
@@ -37,25 +32,24 @@ interface ShadeFn {
 interface ShadeCtrlButtonProps {
 	asyncFN: ShadeFn
 	btnType: string
+	title: string
+    disabled: boolean
 }
-
-// type ShadeCtrlButtonProps = _ShadeCtrlButtonProps
-
 
 interface ShadeCtrlButtonState {
 	isReady: boolean
 	buttonType: string
 }
 
-const TAG = 'Hello Mate: '
+const TAG = 'FA Button: '
+
 export class Hello extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButtonState> {
 	isReady = true
 	constructor(props: ShadeCtrlButtonProps) {
 		super(props)
-		const werd = this.props.btnType
 		this.state = {
 			isReady: true,
-			buttonType: werd
+			buttonType: this.props.btnType
 		}
 	}
 
@@ -80,38 +74,54 @@ export class Hello extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButtonSt
 
 	render = () => {
 		const { isReady, buttonType } = this.state
-		let buttonStyle = { ...styles.btn }
+		let buttonStyle = {}
+		let textStyle = {}
 		
 		switch(buttonType) {
 			case 'Primary': {
-				console.info('========= P: ', buttonType)
 				buttonStyle = { ...styles.btn, ...styles.primary }
-				// console.info('THIS COOL => ', buttonStyle)
+				textStyle = { ...styles.btnText, ...styles.btnTextDark }
 				break
 			}	
 			case 'PrimaryDisabled': {
-				console.info('========= PD: ', buttonType)
 				buttonStyle = { ...styles.btn, ...styles.primaryDisabled }
+				textStyle = { ...styles.btnText, ...styles.btnTextLight }
 				break
 			}	
 			case 'PrimaryDisabledLoading': {
-				console.info('========= PDL: ', buttonType)
 				buttonStyle = { ...styles.btn, ...styles.primaryDisabled }
+				textStyle = { ...styles.btnText, ...styles.btnTextLight }
+				break
+			}
+			case 'Secondary': {
+				buttonStyle = { ...styles.btn, ...styles.secondary }
+				textStyle = { ...styles.btnText, ...styles.btnTextDark }
+				// console.info('THIS COOL => ', buttonStyle)
+				break
+			}	
+			case 'SecondaryDisabled': {
+				buttonStyle = { ...styles.btn, ...styles.secondaryDisabled }
+				textStyle = { ...styles.btnText, ...styles.btnTextLight }
+				break
+			}	
+			case 'SecondaryDisabledLoading': {
+				buttonStyle = { ...styles.btn, ...styles.secondaryDisabled }
+				textStyle = { ...styles.btnText, ...styles.btnTextLight }
 				break
 			}
 			case 'Error': {
-				console.info('========= Err: ', buttonType)
 				buttonStyle = { ...styles.btn, ...styles.error }
+				textStyle = { ...styles.btnText, ...styles.btnTextLight }
 				break
 			}
 			case 'ErrorDisabled': {
-				console.info('========= Err: ', buttonType)
 				buttonStyle = { ...styles.btn, ...styles.errorDisabled }
+				textStyle = { ...styles.btnText, ...styles.btnTextLight }
 				break
 			}
 			default: {
-				console.info('========= DEFAULT CATCH ALL')
 				buttonStyle = styles.btn
+				textStyle = styles.btnText
 				break
 			}
 		}
@@ -119,16 +129,22 @@ export class Hello extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButtonSt
 		return (
 			<TouchableOpacity 
 				style={ buttonStyle }
-
 				disabled={ !this.isReady }
 				onPress={
-					() => {
-					this.execute()
-					}
+					() => { this.execute() }
 				}>
-					<Text style={{ fontSize: 32, color: 'white'}}>
-						These Are Titles {isReady}
+					<Text style={ textStyle }>
+						{this.props.title}
 					</Text>
+					{ !this.isReady &&
+					<ActivityIndicator
+						style={ styles.loading }
+						color='black'
+						// hidesWhenStopped={true}
+						size='small'
+						animating={ !this.isReady }
+					/>
+					}
 					
 			</TouchableOpacity>
 		
@@ -151,19 +167,27 @@ export class Hello extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButtonSt
 
 export default Hello;
 
+const grey04 = 				'#EFEFEF'
+const grey10 =				'#DDDDDD'
+const grey15 = 				'#BEBEBE'
+const grey25 = 				'#AAAAAA'
+const grey85 = 				'#303030'
 
-const primary = '#79C534'
-const primaryDisabled = '#D0EFBE'
-const secondary = '#007CB7'
-const secondaryDisabled = '#C7EAFB'
-const error = '#C53434'
-const errorDisabled = '#F2ABAD'
+const primary = 			'#79C534'
+const primaryDisabled = 	'#D0EFBE'
+const secondary = 			'#FFD623'
+const secondaryDisabled = 	'#FFF4C4'
+const tertiary = 			grey25
+const tertiaryDisabled = 	grey10
+const error = 				'#C53434'
+const errorDisabled = 		'#F2ABAD'
 
 
 const styles = StyleSheet.create({
 
 	btn: {
-		flex: 1, 
+		flex: 1,
+		flexDirection: 'row', 
 		borderRadius: 8,
 		borderColor: 'black',
 		borderWidth: 2, 
@@ -175,18 +199,49 @@ const styles = StyleSheet.create({
 		marginLeft: 4, 
 	},
 
+	btnText: {
+		fontSize: 28,
+		fontFamily: Platform.OS == 'ios' ? "AvenirNext-Bold" : "sans-serif-medium",
+	},
+
+	btnTextDark: {
+		color: 'black',
+	},
+
+	btnTextLight: {
+		color: 'darkgrey',
+	},
+
+	loading: {
+		// flex: 0.2,
+		marginHorizontal: 8,
+		padding: 4,
+	},
+
 	primary: {
-		backgroundColor: primary
+		backgroundColor: primary,
+		borderColor: 'black',
 	},
 	primaryDisabled: {
 		backgroundColor: primaryDisabled,
+		borderColor: grey25
+	},
+
+	secondary: {
+		backgroundColor: secondary,
+		borderColor: 'black',
+	},
+	secondaryDisabled: {
+		backgroundColor: secondaryDisabled,
+		borderColor: grey25
 	},
 
 	error: {
 		backgroundColor: error
 	},
 	errorDisabled: {
-		backgroundColor: errorDisabled
-	},
+		backgroundColor: errorDisabled,
+		borderColor: grey15,
+	},	
 
 })
