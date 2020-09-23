@@ -102,22 +102,22 @@ const App = () => {
 
 						<Hello
 							disabled={ true }
-							title={ buttonType.label }
-							btnType={ buttonType.label }
-							asyncFN={ () => sum(234, 234) }
-						/>
-
-						<Hello
-							disabled={true}
 							title={ buttonType.errorDisabled }
 							btnType={ buttonType.errorDisabled }
 							asyncFN={ () => sum(234, 234) }
 						/>
 
 						<Hello
+							disabled={ true }
+							title={ buttonType.label }
+							btnType={ buttonType.label }
+							asyncFN={ () => sum(234, 234) }
+						/>
+
+						<Hello
 							disabled={false}
-							title='Broken Button' 
-							btnType={ "ErrorDisabl" }
+							title='Default' 
+							btnType={ "Broken" }
 							asyncFN={ () => sum(234, 234) }
 						/>
 

@@ -34,7 +34,7 @@ interface ShadeCtrlButtonProps {
 	asyncFN: ShadeFn
 	btnType: string
 	title: string
-    disabled: boolean
+	disabled: boolean
 }
 
 interface ShadeCtrlButtonState {
@@ -86,12 +86,12 @@ export class Hello extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButtonSt
 			}	
 			case 'PrimaryDisabled': {
 				buttonStyle = { ...styles.btn, ...styles.primaryDisabled }
-				textStyle = { ...styles.btnText, ...styles.btnTextLight }
+				textStyle = { ...styles.btnText, ...styles.btnTextGrey }
 				break
 			}	
 			case 'PrimaryDisabledLoading': {
 				buttonStyle = { ...styles.btn, ...styles.primaryDisabled }
-				textStyle = { ...styles.btnText, ...styles.btnTextLight }
+				textStyle = { ...styles.btnText, ...styles.btnTextGrey }
 				break
 			}
 			case 'Secondary': {
@@ -101,12 +101,12 @@ export class Hello extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButtonSt
 			}	
 			case 'SecondaryDisabled': {
 				buttonStyle = { ...styles.btn, ...styles.secondaryDisabled }
-				textStyle = { ...styles.btnText, ...styles.btnTextLight }
+				textStyle = { ...styles.btnText, ...styles.btnTextGrey }
 				break
 			}	
 			case 'SecondaryDisabledLoading': {
 				buttonStyle = { ...styles.btn, ...styles.secondaryDisabled }
-				textStyle = { ...styles.btnText, ...styles.btnTextLight }
+				textStyle = { ...styles.btnText, ...styles.btnTextGrey }
 				break
 			}
 			case 'Error': {
@@ -141,14 +141,15 @@ export class Hello extends PureComponent<ShadeCtrlButtonProps, ShadeCtrlButtonSt
 					<Text style={ textStyle }>
 						{this.props.title}
 					</Text>
+
 					{ !this.isReady &&
-					<ActivityIndicator
-						style={ styles.loading }
-						color='black'
-						// hidesWhenStopped={true}
-						size='small'
-						animating={ !this.isReady }
-					/>
+						<ActivityIndicator
+							style={ styles.loading }
+							color='black'
+							// hidesWhenStopped={true}
+							size='small'
+							animating={ !this.isReady }
+						/>
 					}
 					
 			</TouchableOpacity>
@@ -194,18 +195,18 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row', 
 		borderRadius: 8,
-		borderColor: 'black',
+		borderColor: grey85,
 		borderWidth: 2, 
 		backgroundColor: 'lightgrey', 
 		justifyContent: 'center', 
 		alignItems: 'center',
-		paddingVertical: 8,
+		paddingVertical: 10,
 		margin: 8, 
 		marginLeft: 4, 
 	},
 
 	btnText: {
-		fontSize: 28,
+		fontSize: 24,
 		fontFamily: Platform.OS == 'ios' ? "AvenirNext-Bold" : "sans-serif-medium",
 	},
 
@@ -213,13 +214,16 @@ const styles = StyleSheet.create({
 		color: 'black',
 	},
 
-	btnTextLight: {
+	btnTextGrey: {
 		color: 'darkgrey',
+	},
+
+	btnTextLight: {
+		color: 'white',
 	},
 
 	loading: {
 		marginHorizontal: 8,
-		// padding: 4,
 	},
 
 	label: {
@@ -233,7 +237,7 @@ const styles = StyleSheet.create({
 	},
 	primaryDisabled: {
 		backgroundColor: primaryDisabled,
-		borderColor: grey25
+		borderColor: grey15
 	},
 
 	secondary: {
@@ -242,7 +246,7 @@ const styles = StyleSheet.create({
 	},
 	secondaryDisabled: {
 		backgroundColor: secondaryDisabled,
-		borderColor: grey25
+		borderColor: grey15
 	},
 
 	error: {
